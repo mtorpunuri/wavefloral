@@ -41,73 +41,8 @@
 
     <section class="order-form">
       <h2>Place an Order</h2>
-      <form id="orderForm">
-        <label>Arrangement Size
-          <select name="size" required>
-            <option value="">Select size</option>
-            <option value="small">Small ($125) - 10-15 stems</option>
-            <option value="medium">Medium ($200) - 15-30 stems </option>
-            <option value="large">Large ($300) - 30+ stems </option>
-          </select>
-        </label>
+      <p>Please reach out via email to mtorpunuri AT gmail DOT com for design requests. Please indicate any color preferences, size of arrangement, and delivery date.</p>
 
-        <label>Color/Design Notes
-          <textarea name="design_notes" placeholder="Let us know any preferences!"></textarea>
-        </label>
-
-        <label>Sender Name
-          <input type="text" name="sender_name" placeholder="Your full name" required />
-        </label>
-
-        <label>Email
-          <input type="email" name="email" placeholder="you@email.com" required />
-        </label>
-
-        <label>Phone
-          <input type="tel" name="phone" placeholder="(000) 000-0000" />
-        </label>
-
-        <label>Preferred Delivery Date
-          <input type="date" name="delivery_date" required />
-        </label>
-
-        <label>Note on Card
-          <textarea name="note" placeholder="Your message for the recipient"></textarea>
-        </label>
-
-        <label>Additional Info
-          <textarea name="extra_info" placeholder="Delivery instructions, gate codes, etc."></textarea>
-        </label>
-
-        <input type="submit" value="Submit Order" />
-      </form>
-      <div class="form-success" id="formSuccess">
-        <strong>Thank you!</strong> Your order has been submitted.
-      </div>
-    </section>
-  </div>
-
-  <script>
-    const form = document.getElementById('orderForm');
-    const successMessage = document.getElementById('formSuccess');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      const response = await fetch('https://formsubmit.co/ajax/76ff325eb2615f70df487950f6fb984a', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData,
-      });
-
-      if (response.ok) {
-        form.reset();
-        successMessage.style.display = 'block';
-      } else {
-        alert('Oops! Something went wrong. Please try again.');
-      }
-    });
-  </script>
+     
 </body>
 </html>
