@@ -42,7 +42,97 @@
 
     <section class="order-form">
       <h2>Place an Order</h2>
-      <p>Please reach out via email to mtorpunuri AT gmail DOT com for design requests. Please indicate any color preferences, size of arrangement, and delivery date.</p>
+      <form id="orderForm" method="POST">
+        <input type="hidden" name="access_key" value="eab7119e-e4e6-4ec2-acd0-d1e329727261">
+        <input type="text" name="honeypot" style="display:none">
+
+
+        <label>Arrangement Size
+          <select name="size" required>
+            <option value="">Select size</option>
+            <option value="small">Small ($125) - 10-15 stems</option>
+            <option value="medium">Medium ($200) - 15-30 stems </option>
+            <option value="large">Large ($300) - 30+ stems </option>
+            <option value="custom">Custom - Please provide additional info!</option>
+          </select>
+        </label>
+
+        <label>Color/Design Notes
+          <textarea name="design_notes" placeholder="Let us know any preferences!"></textarea>
+        </label>
+
+        <label>Sender Name
+          <input type="text" name="sender_name" placeholder="Your full name" required />
+        </label>
+
+        <label>Email
+          <input type="email" name="email" placeholder="you@email.com" required />
+        </label>
+
+        <label>Phone
+          <input type="tel" name="phone" placeholder="(000) 000-0000" />
+        </label>
+
+        <label>Preferred Delivery Date
+          <input type="date" name="delivery_date" required />
+        </label>
+
+        <label>Note on Card
+          <textarea name="note" placeholder="Your message for the recipient"></textarea>
+        </label>
+
+        <label>Additional Info
+          <textarea name="extra_info" placeholder="Delivery instructions, gate codes, etc."></textarea>
+        </label>
+
+        <input type="submit" value="Submit Order" />
+      </form>
+      <div class="form-success" id="formSuccess">
+        <strong>Thank you!</strong> Your order has been submitted.
+      </div>
+    </section>
+  </div>
+
+  <script>
+const form = document.getElementById('orderForm');
+const result = document.getElementById('formSuccess');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  result.innerHTML = "Please wait..."
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                result.innerHTML = "Form submitted successfully";
+            } else {
+                console.log(response);
+                result.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            result.innerHTML = "Something went wrong!";
+        })
+        .then(function() {
+            form.reset();
+            setTimeout(() => {
+                result.style.display = "none";
+            }, 3000);
+        });
+});
+  </script>
 
      
 </body>
